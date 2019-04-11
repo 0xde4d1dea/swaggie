@@ -1,7 +1,12 @@
 import { injectable, inject } from 'inversify';
 import { ApiSpec, ApiOperation, ClientOptions, ApiOperationParam } from '../types';
 import { camelCase, orderBy, last } from 'lodash';
-import { escapeReservedWords, saveAndPrettifyFile, groupOperationsByGroupName, getBestResponse } from './util';
+import {
+  escapeReservedWords,
+  saveAndPrettifyFile,
+  groupOperationsByGroupName,
+  getBestResponse,
+} from './util';
 import * as path from 'path';
 import { IOperationParam, IServiceClient, IApiOperation } from './models';
 import { getTSParamType } from './support';
@@ -9,15 +14,9 @@ import { TYPES, Ejs } from '../ioc/types';
 
 @injectable()
 export class OperationsGenerator {
-  constructor(
-    @inject(TYPES.Ejs) private readonly ejs: Ejs,
-  ) { }
+  constructor(@inject(TYPES.Ejs) private readonly ejs: Ejs) {}
 
-  generate(
-    spec: ApiSpec,
-    operations: ApiOperation[],
-    options: ClientOptions
-  ) {
+  generate(spec: ApiSpec, operations: ApiOperation[], options: ClientOptions) {
     const groups = groupOperationsByGroupName(operations);
     // tslint:disable-next-line:forin prefer-const
     for (let name in groups) {
@@ -39,20 +38,11 @@ export class OperationsGenerator {
     this.createBarrelFile(groups, `${options.outDir}/index.ts`);
   }
 
-  renderOperationGroup(
-    group: any[],
-    func: any,
-    spec: ApiSpec,
-    options: ClientOptions
-  ): string[] {
+  renderOperationGroup(group: any[], func: any, spec: ApiSpec, options: ClientOptions): string[] {
     return group.map((op) => func.call(this, spec, op, options)).reduce((a, b) => a.concat(b));
   }
 
-  renderParamSignature(
-    op: ApiOperation,
-    options: ClientOptions,
-    pkg?: string
-  ): string {
+  renderParamSignature(op: ApiOperation, options: ClientOptions, pkg?: string): string {
     const params = op.parameters;
     const required = params.filter((param) => param.required);
     const optional = params.filter((param) => !param.required);

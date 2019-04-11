@@ -9,6 +9,7 @@ export const TYPES = {
   FileLoader: Symbol('FileLoader'),
   FilesystemFacade: Symbol('FilesystemFacade'),
   Generator: Symbol('Generator'),
+  OperationsGenerator: Symbol('OperationsGenerator'),
   OperationsParser: Symbol('OperationsParser'),
   SpecFormatter: Symbol('SpecFormatter'),
   SpecResolver: Symbol('SpecResolver'),

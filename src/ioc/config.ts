@@ -7,6 +7,7 @@ import { OperationsParser } from '../spec';
 import { SpecFormatter } from '../spec/spec-formatter';
 import { SpecResolver } from '../spec/spec-resolver';
 import { Ejs, TYPES } from './types';
+import { OperationsGenerator } from '../gen/operations-generator';
 
 const container = new Container();
 
@@ -16,6 +17,7 @@ container.bind<FileLoader>(TYPES.FileLoader).to(FileLoader);
 container.bind<FilesystemFacade>(TYPES.FilesystemFacade).to(FilesystemFacade);
 container.bind<Generator>(TYPES.Generator).to(Generator);
 container.bind<OperationsParser>(TYPES.OperationsParser).to(OperationsParser);
+container.bind<OperationsGenerator>(TYPES.OperationsGenerator).to(OperationsGenerator);
 container.bind<SpecFormatter>(TYPES.SpecFormatter).to(SpecFormatter);
 container.bind<SpecResolver>(TYPES.SpecResolver).to(SpecResolver);
 
