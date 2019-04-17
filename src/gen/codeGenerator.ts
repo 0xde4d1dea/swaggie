@@ -3,7 +3,7 @@ import { injectable, inject } from 'inversify';
 import genTypes from './genTypes';
 import { applyFormatOptions } from './support';
 import { ApiSpec, ApiOperation, ClientOptions } from '../types';
-import { TYPES } from '../ioc';
+import { TYPES } from '../ioc/types';
 import { OperationsGenerator } from './operations-generator';
 
 @injectable()

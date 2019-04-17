@@ -14,7 +14,9 @@ import { TYPES, Ejs } from '../ioc/types';
 
 @injectable()
 export class OperationsGenerator {
-  constructor(@inject(TYPES.Ejs) private readonly ejs: Ejs) {}
+  constructor(
+    @inject(TYPES.Ejs) private readonly ejs: Ejs
+  ) {}
 
   generate(spec: ApiSpec, operations: ApiOperation[], options: ClientOptions) {
     const groups = groupOperationsByGroupName(operations);
@@ -22,7 +24,7 @@ export class OperationsGenerator {
     for (let name in groups) {
       const group = groups[name];
       const clientData = this.prepareClient(name, group, options);
-      const absPath = path.join(__dirname, '..', '..', '..', 'templates', 'axios', 'client.ejs');
+      const absPath = path.join(__dirname, '..', '..', 'templates', 'axios', 'client.ejs');
 
       this.ejs.renderFile(absPath, clientData, (err, str) => {
         if (err) {
